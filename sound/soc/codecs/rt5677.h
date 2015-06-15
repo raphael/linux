@@ -1406,46 +1406,6 @@
 #define RT5677_DSP_CLK_SRC_PLL2			(0x0 << 7)
 #define RT5677_DSP_CLK_SRC_BYPASS		(0x1 << 7)
 
-/* ASRC Control 3 (0x85) */
-#define RT5677_DA_STO_CLK_SEL_MASK		(0xf << 12)
-#define RT5677_DA_STO_CLK_SEL_SFT		12
-#define RT5677_DA_MONO2L_CLK_SEL_MASK		(0xf << 4)
-#define RT5677_DA_MONO2L_CLK_SEL_SFT		4
-#define RT5677_DA_MONO2R_CLK_SEL_MASK		(0xf << 0)
-#define RT5677_DA_MONO2R_CLK_SEL_SFT		0
-
-/* ASRC Control 4 (0x86) */
-#define RT5677_DA_MONO3L_CLK_SEL_MASK		(0xf << 12)
-#define RT5677_DA_MONO3L_CLK_SEL_SFT		12
-#define RT5677_DA_MONO3R_CLK_SEL_MASK		(0xf << 8)
-#define RT5677_DA_MONO3R_CLK_SEL_SFT		8
-#define RT5677_DA_MONO4L_CLK_SEL_MASK		(0xf << 4)
-#define RT5677_DA_MONO4L_CLK_SEL_SFT		4
-#define RT5677_DA_MONO4R_CLK_SEL_MASK		(0xf << 0)
-#define RT5677_DA_MONO4R_CLK_SEL_SFT		0
-
-/* ASRC Control 5 (0x87) */
-#define RT5677_AD_STO1_CLK_SEL_MASK		(0xf << 12)
-#define RT5677_AD_STO1_CLK_SEL_SFT		12
-#define RT5677_AD_STO2_CLK_SEL_MASK		(0xf << 8)
-#define RT5677_AD_STO2_CLK_SEL_SFT		8
-#define RT5677_AD_STO3_CLK_SEL_MASK		(0xf << 4)
-#define RT5677_AD_STO3_CLK_SEL_SFT		4
-#define RT5677_AD_STO4_CLK_SEL_MASK		(0xf << 0)
-#define RT5677_AD_STO4_CLK_SEL_SFT		0
-
-/* ASRC Control 6 (0x88) */
-#define RT5677_AD_MONOL_CLK_SEL_MASK		(0xf << 12)
-#define RT5677_AD_MONOL_CLK_SEL_SFT		12
-#define RT5677_AD_MONOR_CLK_SEL_MASK		(0xf << 8)
-#define RT5677_AD_MONOR_CLK_SEL_SFT		8
-
-/* ASRC Control 7 (0x89) */
-#define RT5677_DSP_OB_0_3_CLK_SEL_MASK		(0xf << 12)
-#define RT5677_DSP_OB_0_3_CLK_SEL_SFT		12
-#define RT5677_DSP_OB_4_7_CLK_SEL_MASK		(0xf << 8)
-#define RT5677_DSP_OB_4_7_CLK_SEL_SFT		8
-
 /* VAD Function Control 4 (0x9f) */
 #define RT5677_VAD_SRC_MASK			(0x7 << 8)
 #define RT5677_VAD_SRC_SFT			8
@@ -1626,6 +1586,12 @@
 #define RT5677_GPIO6_P_NOR			(0x0 << 0)
 #define RT5677_GPIO6_P_INV			(0x1 << 0)
 
+/* General Control (0xfa) */
+#define RT5677_IRQ_DEBOUNCE_SEL_MASK		(0x3 << 3)
+#define RT5677_IRQ_DEBOUNCE_SEL_MCLK		(0x0 << 3)
+#define RT5677_IRQ_DEBOUNCE_SEL_RC		(0x1 << 3)
+#define RT5677_IRQ_DEBOUNCE_SEL_SLIM		(0x2 << 3)
+
 /* Virtual DSP Mixer Control (0xf7 0xf8 0xf9) */
 #define RT5677_DSP_IB_01_H			(0x1 << 15)
 #define RT5677_DSP_IB_01_H_SFT			15
@@ -1687,6 +1653,7 @@ enum {
 	RT5677_AIF4,
 	RT5677_AIF5,
 	RT5677_AIFS,
+	RT5677_DSPBUFF,
 };
 
 enum {
@@ -1703,47 +1670,7 @@ enum {
 	RT5677_IRQ_JD1,
 	RT5677_IRQ_JD2,
 	RT5677_IRQ_JD3,
-};
-
-enum rt5677_type {
-	RT5677,
-	RT5676,
-};
-
-/* ASRC clock source selection */
-enum {
-	RT5677_CLK_SEL_SYS,
-	RT5677_CLK_SEL_I2S1_ASRC,
-	RT5677_CLK_SEL_I2S2_ASRC,
-	RT5677_CLK_SEL_I2S3_ASRC,
-	RT5677_CLK_SEL_I2S4_ASRC,
-	RT5677_CLK_SEL_I2S5_ASRC,
-	RT5677_CLK_SEL_I2S6_ASRC,
-	RT5677_CLK_SEL_SYS2,
-	RT5677_CLK_SEL_SYS3,
-	RT5677_CLK_SEL_SYS4,
-	RT5677_CLK_SEL_SYS5,
-	RT5677_CLK_SEL_SYS6,
-	RT5677_CLK_SEL_SYS7,
-};
-
-/* filter mask */
-enum {
-	RT5677_DA_STEREO_FILTER = 0x1,
-	RT5677_DA_MONO2_L_FILTER = (0x1 << 1),
-	RT5677_DA_MONO2_R_FILTER = (0x1 << 2),
-	RT5677_DA_MONO3_L_FILTER = (0x1 << 3),
-	RT5677_DA_MONO3_R_FILTER = (0x1 << 4),
-	RT5677_DA_MONO4_L_FILTER = (0x1 << 5),
-	RT5677_DA_MONO4_R_FILTER = (0x1 << 6),
-	RT5677_AD_STEREO1_FILTER = (0x1 << 7),
-	RT5677_AD_STEREO2_FILTER = (0x1 << 8),
-	RT5677_AD_STEREO3_FILTER = (0x1 << 9),
-	RT5677_AD_STEREO4_FILTER = (0x1 << 10),
-	RT5677_AD_MONO_L_FILTER = (0x1 << 11),
-	RT5677_AD_MONO_R_FILTER = (0x1 << 12),
-	RT5677_DSP_OB_0_3_FILTER = (0x1 << 13),
-	RT5677_DSP_OB_4_7_FILTER = (0x1 << 14),
+	RT5677_IRQ_NUM,
 };
 
 struct rt5677_priv {
@@ -1762,17 +1689,23 @@ struct rt5677_priv {
 	int pll_in;
 	int pll_out;
 	int pow_ldo2; /* POW_LDO2 pin */
-	enum rt5677_type type;
 #ifdef CONFIG_GPIOLIB
 	struct gpio_chip gpio_chip;
 #endif
-	bool dsp_vad_en;
-	struct regmap_irq_chip_data *irq_data;
+	bool dsp_vad_en; /* DSP VAD enable/disable request */
 	bool is_dsp_mode;
 	bool is_vref_slow;
+	struct delayed_work dsp_work;
+
+	/* Interrupt handling */
+	struct irq_domain *domain;
+	struct mutex irq_lock;
+	unsigned int irq_en;
+	struct delayed_work irq_work;
+
+	int (*set_dsp_vad)(struct snd_soc_codec *codec, bool on);
 };
 
-int rt5677_sel_asrc_clk_src(struct snd_soc_codec *codec,
-		unsigned int filter_mask, unsigned int clk_src);
+int rt5677_poll_gpios(struct snd_soc_codec *codec);
 
 #endif /* __RT5677_H__ */

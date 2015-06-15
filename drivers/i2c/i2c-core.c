@@ -650,7 +650,6 @@ static int i2c_device_probe(struct device *dev)
 	if (!device_can_wakeup(&client->dev))
 		device_init_wakeup(&client->dev,
 					client->flags & I2C_CLIENT_WAKE);
-	dev_dbg(dev, "probe\n");
 
 	status = of_clk_set_defaults(dev->of_node, false);
 	if (status < 0)

@@ -418,6 +418,13 @@ config BACKLIGHT_SKY81452
 	  To compile this driver as a module, choose M here: the module will
 	  be called sky81452-backlight
 
+config BACKLIGHT_CHROMEOS_KEYBOARD
+        tristate "EC-based Keyboard Backlight for Chrome OS"
+        depends on BACKLIGHT_CLASS_DEVICE && ACPI
+        help
+          If you have a EC-based keyboard backlight say Y to enable the
+          backlight driver.
+
 config BACKLIGHT_TPS65217
 	tristate "TPS65217 Backlight"
 	depends on BACKLIGHT_CLASS_DEVICE && MFD_TPS65217

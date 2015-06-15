@@ -1,0 +1,8 @@
+#!/usr/bin/fish
+
+git checkout .
+rm -f */**/*.rej
+rm -f drivers/leds/leds-chromeos-keyboard.c
+rm -f drivers/video/backlight/chromeos_keyboard_bl.c
+rm -f sound/soc/intel/boards/bdw-rt5677.c
+patches/apply.sh | grep FAILED
